@@ -4,7 +4,7 @@
 
 using namespace loki11::typelist;
 
-class dummy {
+struct dummy {
   public:
     dummy() = delete;
     dummy(int) {};
@@ -26,4 +26,16 @@ TEST(typelist, simpletest) {
 
     int len = Length<Append<TypeList<char, long, long>, short>::type>::value; 
     ASSERT_EQ(len, 4);
+}
+
+
+TEST(typelist, testpophead) {
+    auto list = TypeList<int, char, double, dummy>();
+
+    ASSERT_EQ(Length<decltype(list)>::value, 4);
+
+    PopHead<decltype(list), 2>::type result;
+    ASSERT_EQ(Length<decltype(result)>::value, 2);
+
+    TypeAt<decltype(result), 1>::type pp(321);
 }

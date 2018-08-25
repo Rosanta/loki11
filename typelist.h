@@ -78,6 +78,20 @@ struct Append<TypeList<TArgs...>, T> {
     typedef TypeList<TArgs..., T> type;
 };
 
+// PopHead
+template <typename List, int nelem>
+struct PopHead;
+
+template <typename A, typename ...TArgs>
+struct PopHead<TypeList<A, TArgs...>, 0> {
+    typedef TypeList<A, TArgs...> type;
+};
+
+template <typename A, typename ...TArgs, int nelem>
+struct PopHead<TypeList<A, TArgs...>, nelem> {
+    typedef typename PopHead<TypeList<TArgs...>, nelem - 1>::type type;
+};
+
 }   // namespace typelist
 
 }   // namespace loki11
