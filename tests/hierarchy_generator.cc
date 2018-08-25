@@ -18,6 +18,16 @@ TEST(simpletest, hierarchy_generator) {
 
     Field<char>(obj).value_ = 0;
 
+    Field<0>(obj).value_ = 0;
+    Field<1>(obj).value_ = 1;
+    Field<2>(obj).value_ = 2;
+    Field<3>(obj).value_ = 3;
+
+    ASSERT_EQ(Field<0>(obj).value_, 0);
+    ASSERT_EQ(Field<1>(obj).value_, 1);
+    ASSERT_EQ(Field<2>(obj).value_, 2);
+    ASSERT_EQ(Field<3>(obj).value_, 3);
+
     loki11::CompileError<true>();
 }
 

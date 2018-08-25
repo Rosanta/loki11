@@ -40,6 +40,32 @@ Unit<T>& Field(GenScatterHierarchy<loki11::typelist::TypeList<TArgs...>, Unit>& 
     return obj;
 }
 
+// Field with index
+template <int index,  typename List, template <class> class Unit>
+Unit<typename loki11::typelist::TypeAt<List, index>::type>& 
+Field(GenScatterHierarchy<List, Unit>& obj);
+
+namespace helper {
+
+template <int index, typename List, template <class> class Unit> 
+struct ScatterHierarchyTypeExtractor {
+    typedef GenScatterHierarchyHelper<typename loki11::typelist::PopHead<List, index>::type, Unit> type;
+};
+
+template <int index, typename List, template <class> class Unit>
+typename ScatterHierarchyTypeExtractor<index, List, Unit>::type&
+FeildWithIndexHelper(GenScatterHierarchy<List, Unit>& obj) {
+    return obj;
+}
+
+}   // namespace helper
+
+template <int index, typename ...TArgs, template <class> class Unit>
+Unit<typename loki11::typelist::TypeAt<loki11::typelist::TypeList<TArgs...>, index>::type>&
+Field(GenScatterHierarchy<loki11::typelist::TypeList<TArgs...>, Unit>& obj) {
+    return helper::FeildWithIndexHelper<index, loki11::typelist::TypeList<TArgs...>>(obj);
+}
+
 }   // hierarchy_generator
 
 }   // namespace loki11
