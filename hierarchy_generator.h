@@ -47,7 +47,8 @@ namespace helper {
 
 template <int index, typename List, template <class> class Unit> 
 struct ScatterHierarchyTypeExtractor {
-    typedef GenScatterHierarchyHelper<typename PopHead<List, index>::type, Unit> type;
+    typedef GenScatterHierarchyHelper<
+        typename PopHead<List, index>::type, Unit> type;
 };
 
 template <int index, typename List, template <class> class Unit>

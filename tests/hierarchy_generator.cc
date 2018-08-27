@@ -4,19 +4,26 @@
 
 #include "utility.h"
 
-using namespace loki11;
 
-template <typename T> 
+template <typename T>
 struct Holder {
     T value_;
 };
 
-TEST(simpletest, hierarchy_generator) {
+namespace loki11 {
+
+TEST(testType, hierarchy_generator) {
     ASSERT_TRUE(true);
 
-    auto obj = GenScatterHierarchy<TypeList<int, char, int, int>, Holder>();
+    auto obj = GenScatterHierarchy<TypeList<int, char, double>, Holder>();
 
-    Field<char>(obj).value_ = 0;
+    Field<double>(obj).value_ = 3.321;
+    ASSERT_EQ(Field<double>(obj).value_, 3.321);
+
+}
+
+TEST(testIndex, hierarchy_generator) {
+    auto obj = GenScatterHierarchy<TypeList<int, int, int, int>, Holder>();
 
     Field<0>(obj).value_ = 0;
     Field<1>(obj).value_ = 1;
@@ -30,4 +37,6 @@ TEST(simpletest, hierarchy_generator) {
 
     loki11::CompileError<true>();
 }
+
+}   // namespace loki11
 

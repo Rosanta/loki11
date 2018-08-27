@@ -2,13 +2,13 @@
 
 #include <gtest/gtest.h>
 
-using namespace loki11;
-
 struct dummy {
   public:
     dummy() = delete;
     dummy(int) {};
 };
+
+namespace loki11 {
 
 TEST(typelist, simpletest) {
     auto list = TypeList<int, char, double>();
@@ -39,3 +39,5 @@ TEST(typelist, testpophead) {
 
     TypeAt<decltype(result), 1>::type pp(321);
 }
+
+}   // namespace loki11

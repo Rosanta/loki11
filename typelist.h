@@ -1,7 +1,5 @@
 #pragma once 
 
-#include <type_traits>
-
 namespace loki11 {
 
 // TypeList
@@ -14,7 +12,7 @@ struct Length;
 
 template <typename ... TArgs>
 struct Length<TypeList<TArgs...>> {
-    enum { value = std::integral_constant<int, sizeof...(TArgs)>::value };
+    enum { value= sizeof...(TArgs) };
 };
 
 // TypeAt
@@ -44,7 +42,8 @@ struct TypeAtNonStrict<TypeList<A, TArgs...>, 0, Default> {
 
 template <typename ...TArgs, typename Head, int index, typename Default>
 struct TypeAtNonStrict<TypeList<Head, TArgs...>, index, Default> {
-    typedef typename TypeAtNonStrict<TypeList<TArgs...>, index - 1, Default>::type type;
+    typedef typename TypeAtNonStrict<
+        TypeList<TArgs...>, index - 1, Default>::type type;
 };
 
 // IndexOf
