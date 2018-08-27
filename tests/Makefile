@@ -1,6 +1,6 @@
 CC=clang++
-CFLAGS=--std=c++11 -I/usr/local/include -I ../ $(SLIBS)
-SLIBS=/usr/local/lib/libgtest.a /usr/local/lib/libgtest_main.a
+CFLAGS=--std=c++11 -I/usr/local/include -I ../ $(LIBS)
+LIBS=-lgtest -lgtest_main
 
 .PHONY : all
 
