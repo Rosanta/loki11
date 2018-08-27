@@ -2,7 +2,7 @@
 
 #include <gtest/gtest.h>
 
-using namespace loki11::typelist;
+using namespace loki11;
 
 struct dummy {
   public:

@@ -4,7 +4,7 @@
 
 #include "utility.h"
 
-using namespace loki11::hierarchy_generator;
+using namespace loki11;
 
 template <typename T> 
 struct Holder {
@@ -14,7 +14,7 @@ struct Holder {
 TEST(simpletest, hierarchy_generator) {
     ASSERT_TRUE(true);
 
-    auto obj = GenScatterHierarchy<loki11::typelist::TypeList<int, char, int, int>, Holder>();
+    auto obj = GenScatterHierarchy<TypeList<int, char, int, int>, Holder>();
 
     Field<char>(obj).value_ = 0;
 

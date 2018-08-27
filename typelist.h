@@ -4,8 +4,6 @@
 
 namespace loki11 {
 
-namespace typelist {
-
 // TypeList
 template <typename ... TArgs> 
 struct TypeList {};
@@ -91,7 +89,5 @@ template <typename A, typename ...TArgs, int nelem>
 struct PopHead<TypeList<A, TArgs...>, nelem> {
     typedef typename PopHead<TypeList<TArgs...>, nelem - 1>::type type;
 };
-
-}   // namespace typelist
 
 }   // namespace loki11
