@@ -10,5 +10,7 @@ typelist : all
 hierarchy : all
 	$(CC) $(CFLAGS) hierarchy_generator.cc -o hierarchy_generator && ./hierarchy_generator
 
+tuple : all
+	$(CC) $(CFLAGS) tuple.cc -o tuple && ./tuple
 
-test : typelist hierarchy
+test : typelist hierarchy tuple
