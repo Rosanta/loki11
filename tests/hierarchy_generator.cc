@@ -1,5 +1,7 @@
 #include "hierarchy_generator.h"
 
+#include <type_traits>
+
 #include "gtest/gtest.h"
 
 #include "utility.h"
@@ -20,6 +22,9 @@ TEST(testType, hierarchy_generator) {
     Field<double>(obj).value_ = 3.321;
     ASSERT_EQ(Field<double>(obj).value_, 3.321);
 
+    ASSERT_TRUE((std::is_same<decltype(Field<double>(obj).value_), double>::value));
+    ASSERT_TRUE((std::is_same<decltype(Field<char>(obj).value_), char>::value));
+    ASSERT_TRUE((std::is_same<decltype(Field<int>(obj).value_), int>::value));
 }
 
 TEST(testIndex, hierarchy_generator) {
@@ -36,6 +41,28 @@ TEST(testIndex, hierarchy_generator) {
     ASSERT_EQ(Field<3>(obj).value_, 3);
 
     loki11::CompileError<true>();
+}
+
+template <typename T, typename U>
+class EventHandler : public U {
+  public:
+    virtual T onEvent(T data) = 0;
+};
+
+class ValueHandler: public
+    GenLinearHierarchy<TypeList<int, char, double>, EventHandler>  {
+  public:
+    virtual int onEvent(int data) override { return 0; }
+    virtual char onEvent(char data) override { return 0; }
+    virtual double onEvent(double data) override { return 0; }
+};
+
+TEST(testLiearHierarchy, hierarchy_generator) {
+    ValueHandler vh;
+
+    ASSERT_TRUE((std::is_same<decltype(vh.onEvent(123)), int>::value));
+    ASSERT_TRUE((std::is_same<decltype(vh.onEvent('c')), char>::value));
+    ASSERT_TRUE((std::is_same<decltype(vh.onEvent(123.321)), double>::value));
 }
 
 }   // namespace loki11

@@ -2,6 +2,8 @@
 
 namespace loki11 {
 
+struct EmptyType {};
+
 template <bool>
 struct CompileError;
 

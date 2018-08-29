@@ -15,7 +15,7 @@ template <typename List, template <class> class Unit>
 class GenScatterHierarchyHelper;
 
 template <typename ...TArgs, typename A, template <class> class Unit>
-class GenScatterHierarchyHelper<TypeList<A, TArgs...>, Unit> : 
+class GenScatterHierarchyHelper<TypeList<A, TArgs...>, Unit> :
     public Unit<A> {};
 
 }   // namespace helper
@@ -40,12 +40,12 @@ Unit<T>& Field(GenScatterHierarchy<TypeList<TArgs...>, Unit>& obj) {
 
 // Field with index
 template <int index,  typename List, template <class> class Unit>
-Unit<typename TypeAt<List, index>::type>& 
+Unit<typename TypeAt<List, index>::type>&
 Field(GenScatterHierarchy<List, Unit>& obj);
 
 namespace helper {
 
-template <int index, typename List, template <class> class Unit> 
+template <int index, typename List, template <class> class Unit>
 struct ScatterHierarchyTypeExtractor {
     typedef GenScatterHierarchyHelper<
         typename PopHead<List, index>::type, Unit> type;
@@ -64,5 +64,16 @@ Unit<typename TypeAt<TypeList<TArgs...>, index>::type>&
 Field(GenScatterHierarchy<TypeList<TArgs...>, Unit>& obj) {
     return helper::FeildWithIndexHelper<index, TypeList<TArgs...>>(obj);
 }
+
+// LinearHierarchy
+template <typename List, template <class, class> class Unit>
+class GenLinearHierarchy;
+
+template <template <class, class> class Unit>
+class GenLinearHierarchy<TypeList<>, Unit> {};
+
+template <typename Head, typename ...TArgs, template <class, class> class Unit>
+class GenLinearHierarchy<TypeList<Head, TArgs...>, Unit> :public
+  Unit<Head, GenLinearHierarchy<TypeList<TArgs...>, Unit>> {};
 
 }   // namespace loki11
