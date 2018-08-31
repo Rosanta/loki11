@@ -1,6 +1,6 @@
-CC=clang++
-CFLAGS=--std=c++11 -I/usr/local/include -I ../ $(LIBS)
-LIBS=-lgtest -lgtest_main
+CC=g++
+CFLAGS=--std=c++11 -I/usr/local/include -I../ $(LIBS) -g
+LIBS= /usr/local/lib/libgtest.a /usr/local/lib/libgtest_main.a /usr/local/lib/libglog.a
 
 .PHONY : all
 
@@ -13,4 +13,7 @@ hierarchy : all
 tuple : all
 	$(CC) $(CFLAGS) tuple.cc -o tuple && ./tuple
 
-test : typelist hierarchy tuple
+functor : all
+	$(CC) $(CFLAGS) functor.cc -o functor && ./functor
+
+test : typelist hierarchy tuple functor
